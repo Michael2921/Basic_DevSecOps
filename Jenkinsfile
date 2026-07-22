@@ -17,7 +17,7 @@ pipeline {
                 string(credentialsId: 'mongo-username', variable: 'MONGODB_USER'),
                 string(credentialsId: 'mongo-password', variable: 'MONGODB_PASS')]) {
 
-                sh 'docker compose -f docker-compose.yaml up'
+                sh 'docker build -t basic_devsecops:v1 .'
 
 
                 }
