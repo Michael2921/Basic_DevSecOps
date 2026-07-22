@@ -21,6 +21,7 @@ pipeline {
         // add security tests before running docker compose
 
         stage('Running docker compose.') {
+           steps{
             script {
                 withCredentials([
                 string(credentialsId: 'mongo-username', variable: 'MONGODB_USER'),
@@ -33,6 +34,7 @@ pipeline {
                 }
 
 
+                }
                 }
 
         }
