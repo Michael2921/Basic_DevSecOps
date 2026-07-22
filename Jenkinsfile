@@ -10,11 +10,13 @@ pipeline {
 
     stages {
 
-        stage('Cloning from Git repository') {
-            steps {
-                git 'https://github.com/Michael2921/Basic_DevSecOps.git'
-            }
-        }
+//        stage('Cloning from Git repository') {
+//            steps {
+//                git 'https://github.com/Michael2921/Basic_DevSecOps.git'
+//            }
+//        }
+
+        // add security tests before running docker compose
 
         stage('Running docker compose') {
             steps {
