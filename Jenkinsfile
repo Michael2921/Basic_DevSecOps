@@ -10,11 +10,12 @@ pipeline {
 
     stages {
 
-//        stage('Cloning from Git repository') {
-//            steps {
-//                git 'https://github.com/Michael2921/Basic_DevSecOps.git'
-//            }
-//        }
+        stage('Building image from Dockerfile') {
+
+            steps {
+                sh 'docker build -t basic_devsecops:v1 .'
+            }
+        }
 
         // add security tests before running docker compose
 
