@@ -10,7 +10,7 @@ pipeline {
 
     stages {
 
-        stage('Building image from Dockerfile') {
+        stage('Building image from Dockerfile.') {
 
             steps {
                 sh 'docker build -t basic_devsecops:v1 .'
@@ -20,7 +20,7 @@ pipeline {
 
         // add security tests before running docker compose
 
-        stage('Running docker compose') {
+        stage('Running docker compose.') {
             script {
                 withCredentials([
                 string(credentialsId: 'mongo-username', variable: 'MONGODB_USER'),
