@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+
+    environment {
+        MONGODB_HOST = "mongodb"
+        MONGODB_PORT = "27017"
+
+    }
+
+
+
+
+
+
+
+}
