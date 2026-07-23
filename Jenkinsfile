@@ -27,8 +27,8 @@ pipeline {
 
             script {
                 withCredentials([
-                string(credentialsId: 'mongo-username', variable: 'MONGODB_USER'),
-                string(credentialsId: 'mongo-password', variable: 'MONGODB_PASS'),
+                string(credentialsId: 'mongo-username', variable: 'MONGO_INITDB_ROOT_USERNAME'),
+                string(credentialsId: 'mongo-password', variable: 'MONGO_INITDB_ROOT_PASSWORD'),
                ])
                 {
 
