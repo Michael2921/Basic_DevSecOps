@@ -15,7 +15,7 @@ pipeline {
 
             steps {
                 sh 'docker build -t basic_devsecops:v1 .'
-                sh 'docker compose down -v'
+
 
 
             }
@@ -35,7 +35,7 @@ pipeline {
                     passwordVariable: 'MONGO_INITDB_ROOT_PASSWORD')
                ])
                {
-
+                    sh 'docker compose down -v'
                     sh 'docker compose -f docker-compose.yaml up'
 
                 }
