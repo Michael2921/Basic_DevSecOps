@@ -27,8 +27,10 @@ pipeline {
 
             script {
                 withCredentials([
-                string(credentialsId: 'mongo-username', variable: 'MONGO_INITDB_ROOT_USERNAME'),
-                string(credentialsId: 'mongo-password', variable: 'MONGO_INITDB_ROOT_PASSWORD'),
+                    usernamePassword(
+                    credentialsId: 'mongodb-creds',
+                    usernameVariable: 'MONGO_INITDB_ROOT_USERNAME',
+                    passwordVariable: 'MONGO_INITDB_ROOT_PASSWORD')
                ])
                 {
 
@@ -38,6 +40,7 @@ pipeline {
                 ])
 
                  {
+                    sh 'docker compose -f docker-compose.yaml down'
                     sh 'docker compose -f docker-compose.yaml up'
                 }
 
