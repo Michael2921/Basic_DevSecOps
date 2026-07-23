@@ -25,8 +25,9 @@ pipeline {
 
             steps {
 
-               // sh 'trivy image --severity HIGH,CRITICAL basic_devsecops:v1'
                sh 'trivy --version'
+               sh 'trivy image --severity HIGH,CRITICAL basic_devsecops:v1'
+               
 
 
             }
