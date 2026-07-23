@@ -39,7 +39,7 @@ pipeline {
                 withEnv([
                     "ME_CONFIG_MONGODB_URL: mongodb://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_HOST}:${MONGODB_PORT}/"
                 ])
-                 
+
                  {
                     sh 'docker compose -f docker-compose.yaml up'
                 }
@@ -59,11 +59,3 @@ pipeline {
 
         }
     }
-
-
-
-
-
-
-
-}
