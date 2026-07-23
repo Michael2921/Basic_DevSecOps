@@ -15,6 +15,8 @@ pipeline {
 
             steps {
                 sh 'docker build -t basic_devsecops:v1 .'
+                sh 'docker compose -f docker-compose.yaml down'
+
 
             }
         }
@@ -40,9 +42,9 @@ pipeline {
                 ])
 
                  {
-                    sh 'docker compose logs mongo-express'
+
                     sh "Username is $MONGO_INITDB_ROOT_USERNAME"
-                    sh 'Password is ${#MONGO_INITDB_ROOT_PASSWORD}'
+                    sh "Password is $MONGO_INITDB_ROOT_PASSWORD"
                    // sh 'docker compose -f docker-compose.yaml down'
                     //sh 'docker compose -f docker-compose.yaml up'
                 }
