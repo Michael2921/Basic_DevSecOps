@@ -5,7 +5,7 @@ pipeline {
     environment {
         MONGODB_HOST = "mongodb"
         MONGODB_PORT = "27017"
-        ME_CONFIG_BASICAUTH_ENABLED = true
+       // ME_CONFIG_BASICAUTH_ENABLED = true
 
     }
 
@@ -29,18 +29,17 @@ pipeline {
                 withCredentials([
                 string(credentialsId: 'mongo-username', variable: 'MONGODB_USER'),
                 string(credentialsId: 'mongo-password', variable: 'MONGODB_PASS'),
-                string(credentialsId: 'mongoexpress-username', variable: 'ME_CONFIG_BASICAUTH_USERNAME'),
-                string(credentialsId: 'mongoexpress-password', variable: 'ME_CONFIG_BASICAUTH_PASSWORD')]) {
+               // string(credentialsId: 'mongoexpress-username', variable: 'ME_CONFIG_BASICAUTH_USERNAME'),
+                {
 
-                sh 'docker compose -f docker-compose.yaml up'
 
-//                withEnv([
-//                    "ME_CONFIG_MONGODB_URL=mongodb://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_HOST}:${MONGODB_PORT}/"
-//                ])
-//
-//                 {
-//                    sh 'docker compose -f docker-compose.yaml up'
-//                }
+                withEnv([
+                    "ME_CONFIG_MONGODB_URL=mongodb://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_HOST}:${MONGODB_PORT}/"
+                ])
+
+                 {
+                    sh 'docker compose -f docker-compose.yaml up'
+                }
 
 
                 }
