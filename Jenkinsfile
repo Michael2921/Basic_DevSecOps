@@ -9,7 +9,41 @@ pipeline {
 
     }
 
+
+
+
+
     stages {
+
+
+        stage('Sonaqube scan') {
+
+                    steps {
+
+                        withSonarQubeEnv('Sonarqube-server') {
+
+                            sh 'sonar-scanner'
+                        }
+                    }
+
+
+
+
+
+        }
+
+
+        stage('Quality gate') {
+
+                steps {
+
+                        echo "Quality gate goes here"
+
+
+                }
+
+            }
+
 
         stage('Building image from Dockerfile.') {
 
@@ -27,23 +61,12 @@ pipeline {
 
                sh 'trivy --version'
                sh 'trivy image --severity HIGH,CRITICAL basic_devsecops:v1'
-               
 
 
             }
 
         }
 
-        stage('Sonaqube scan') {
-
-            steps {
-
-                    echo "Testing Sonaqube scan"
-
-
-            }
-
-        }
 
 
 
