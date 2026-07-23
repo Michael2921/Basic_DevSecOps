@@ -5,7 +5,7 @@ pipeline {
     environment {
         MONGODB_HOST = "mongodb"
         MONGODB_PORT = "27017"
-       // ME_CONFIG_BASICAUTH_ENABLED = true
+
 
     }
 
@@ -21,7 +21,29 @@ pipeline {
             }
         }
 
-        // add security tests before running docker compose
+        stage('Trivy scan') {
+
+            steps {
+
+                sh 'trivy image --severity HIGH,CRITICAL basic_devsecops:v1'
+
+
+            }
+
+        }
+
+        stage('Sonaqube scan') {
+
+            steps {
+
+                    echo "Testing Sonaqube scan"
+
+
+            }
+
+        }
+
+
 
         stage('Running docker compose.') {
 
@@ -45,9 +67,6 @@ pipeline {
 
 
                 }
-
-
-
 
 
                 }
