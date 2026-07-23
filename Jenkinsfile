@@ -15,7 +15,7 @@ pipeline {
 
             steps {
                 sh 'docker build -t basic_devsecops:v1 .'
-                sh 'docker compose -f docker-compose.yaml down'
+                sh 'docker compose down -v'
 
 
             }
