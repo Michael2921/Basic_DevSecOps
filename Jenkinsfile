@@ -20,9 +20,9 @@ pipeline {
 
                     steps {
 
-                        withSonarQubeEnv('Sonarqube-server') {
+                        withSonarQubeEnv('Sonarqube-server') { //defined in jenkins > system > name of sonaqube server
 
-                            sh 'sonar-scanner'
+                            sh 'sonar-scanner --version' // defined in jenkins > tools > name of sonarqube scanner
                         }
                     }
 
