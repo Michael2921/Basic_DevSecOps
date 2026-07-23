@@ -34,21 +34,10 @@ pipeline {
                     usernameVariable: 'MONGO_INITDB_ROOT_USERNAME',
                     passwordVariable: 'MONGO_INITDB_ROOT_PASSWORD')
                ])
-                {
+               {
 
+                    sh 'docker compose -f docker-compose.yaml up'
 
-                withEnv([
-                    "ME_CONFIG_MONGODB_URL=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${MONGODB_HOST}:${MONGODB_PORT}/"
-                ])
-
-                 {
-
-                    sh 'echo "Username is $MONGO_INITDB_ROOT_USERNAME"'
-                    sh 'echo "Password is $MONGO_INITDB_ROOT_PASSWORD"'
-                    sh 'echo "Password is ${MONGO_INITDB_ROOT_PASSWORD}"'
-                    sh 'echo "Password is ${#MONGO_INITDB_ROOT_PASSWORD}"'
-                   // sh 'docker compose -f docker-compose.yaml down'
-                    //sh 'docker compose -f docker-compose.yaml up'
                 }
 
 
@@ -65,4 +54,3 @@ pipeline {
                 }
 
         }
-    }
