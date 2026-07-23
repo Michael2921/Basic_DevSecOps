@@ -29,7 +29,7 @@ pipeline {
                 withCredentials([
                 string(credentialsId: 'mongo-username', variable: 'MONGODB_USER'),
                 string(credentialsId: 'mongo-password', variable: 'MONGODB_PASS'),
-               // string(credentialsId: 'mongoexpress-username', variable: 'ME_CONFIG_BASICAUTH_USERNAME'),
+               ])
                 {
 
 
