@@ -34,7 +34,7 @@ pipeline {
 
 
                 withEnv([
-                    "ME_CONFIG_MONGODB_URL=mongodb://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_HOST}:${MONGODB_PORT}/"
+                    "ME_CONFIG_MONGODB_URL=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${MONGODB_HOST}:${MONGODB_PORT}/"
                 ])
 
                  {
