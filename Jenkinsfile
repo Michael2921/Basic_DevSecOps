@@ -40,8 +40,8 @@ pipeline {
                 ])
 
                  {
-                    sh 'Username is $MONGO_INITDB_ROOT_USERNAME'
-                    sh 'Password is ${MONGO_INITDB_ROOT_PASSWORD}'
+                    sh "Username is $MONGO_INITDB_ROOT_USERNAME"
+                    sh 'Password is ${#MONGO_INITDB_ROOT_PASSWORD}'
                     sh 'docker compose -f docker-compose.yaml down'
                     sh 'docker compose -f docker-compose.yaml up'
                 }
