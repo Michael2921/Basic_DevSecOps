@@ -32,13 +32,15 @@ pipeline {
                 string(credentialsId: 'mongoexpress-username', variable: 'ME_CONFIG_BASICAUTH_USERNAME'),
                 string(credentialsId: 'mongoexpress-password', variable: 'ME_CONFIG_BASICAUTH_PASSWORD')]) {
 
-                withEnv([
-                    "ME_CONFIG_MONGODB_URL=mongodb://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_HOST}:${MONGODB_PORT}/"
-                ])
+                sh 'docker compose -f docker-compose.yaml up'
 
-                 {
-                    sh 'docker compose -f docker-compose.yaml up'
-                }
+//                withEnv([
+//                    "ME_CONFIG_MONGODB_URL=mongodb://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_HOST}:${MONGODB_PORT}/"
+//                ])
+//
+//                 {
+//                    sh 'docker compose -f docker-compose.yaml up'
+//                }
 
 
                 }
