@@ -2,6 +2,10 @@ pipeline {
 
     agent any
 
+    tools {
+        sonarScanner 'sonarqube-scanner'
+    }
+
     environment {
         MONGODB_HOST = "mongodb"
         MONGODB_PORT = "27017"
