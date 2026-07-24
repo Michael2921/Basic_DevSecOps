@@ -39,7 +39,9 @@ pipeline {
 
                 steps {
 
-                        echo "Quality gate goes here"
+                        timeout(time: 2, unit: 'MINUTES') {
+                            waitForQualityGate abortPipeline: true
+                        }
 
 
                 }
@@ -85,7 +87,7 @@ pipeline {
                ])
                {
                     sh 'docker compose down -v'
-                    sh 'docker compose -f docker-compose.yaml up'
+                    sh 'docker compose -f docker-compose.yaml up -d'
 
                 }
 
