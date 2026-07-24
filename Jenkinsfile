@@ -19,11 +19,15 @@ pipeline {
 
         stage('Sonaqube scan') {
 
+            environment {
+                scannerHome = tool 'sonarqube-scanner'
+            }
+
                     steps {
 
-                        withSonarQubeEnv('Sonarqube-server') { //defined in jenkins > system > name of sonaqube server
+                        withSonarQubeEnv(credentialsId: 'sonarqube-creds', installationName: 'Sonarqube-server') { //defined in jenkins > system > name of sonaqube server
 
-                            sh 'sonarqube-scanner --version' // defined in jenkins > tools > name of sonarqube scanner
+                            sh "${scannerHome}/bin/sonar-scanner" // defined in jenkins > tools > name of sonarqube scanner
                         }
                     }
 
