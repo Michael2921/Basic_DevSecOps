@@ -19,7 +19,7 @@ pipeline {
 
                         withSonarQubeEnv('Sonarqube-server') { //defined in jenkins > system > name of sonaqube server
 
-                            sh 'sonar-scanner --version' // defined in jenkins > tools > name of sonarqube scanner
+                            sh 'sonarqube-scanner --version' // defined in jenkins > tools > name of sonarqube scanner
                         }
                     }
 
