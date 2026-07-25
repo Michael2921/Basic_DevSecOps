@@ -8,9 +8,9 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-COPY app.py .
+#COPY app.py .
 
-RUN useradd --create-home appuser && chown -R appuser:appuser /home/app
+#RUN useradd --create-home appuser && chown -R appuser:appuser /home/app
 
 USER appuser
 
