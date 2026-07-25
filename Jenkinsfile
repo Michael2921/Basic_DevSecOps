@@ -101,7 +101,7 @@ pipeline {
                     passwordVariable: 'MONGO_INITDB_ROOT_PASSWORD')
                ])
                {
-                    sh 'docker compose down --rmi all -v'
+                    sh 'docker compose down -v'
                     sh 'docker compose -f docker-compose.yaml up -d'
 
                 }
