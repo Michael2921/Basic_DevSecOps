@@ -99,6 +99,7 @@ pipeline {
                {
                     sh 'docker compose down -v'
                     sh 'docker compose -f docker-compose.yaml up -d'
+                    sh 'docker compose down -v'
 
                 }
 
