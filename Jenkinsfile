@@ -165,18 +165,23 @@ pipeline {
                         usernamePassword(
                     credentialsId: 'mongodb-creds',
                     usernameVariable: 'MONGO_INITDB_ROOT_USERNAME',
-                    passwordVariable: 'MONGO_INITDB_ROOT_PASSWORD')
+                    passwordVariable: 'MONGO_INITDB_ROOT_PASSWORD'),
+                        usernamePassword(
+                        credentialsId: 'docker-hub-repo',
+                        usernameVariable: 'USER',
+                        passwordVariable: 'PASS')
+
                     ]) {
 
-
+                    def dockerLogin = echo $PASS | docker login -u $USER --password-stdin
                     def shellCmd = "bash ./commands.sh ${IMAGE_NAME}"
                     def ec2Instance = "ec2-user@18.191.154.151"
 
                     sshagent(['basic-devsecops-ssh']) {
                         sh "scp -o StrictHostKeyChecking=no commands.sh docker-compose.yaml ${ec2Instance}:/home/ec2-user"
                         sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} MONGO_INITDB_ROOT_USERNAME='${MONGO_INITDB_ROOT_USERNAME}' MONGO_INITDB_ROOT_PASSWORD='${MONGO_INITDB_ROOT_PASSWORD}' \
-                        MONGODB_HOST='${MONGODB_HOST}' MONGODB_PORT='${MONGODB_PORT}' \
-                        ${shellCmd}"
+                        MONGODB_HOST='${MONGODB_HOST}' MONGODB_PORT='${MONGODB_PORT}' USER=${USER} PASS=${PASS} \
+                        ${dockerLogin} ${shellCmd}"
 
                     }
 
