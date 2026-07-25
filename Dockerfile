@@ -14,8 +14,6 @@ COPY --from=builder /home/app /home/app
 
 COPY app.py .
 
-USER appuser
-
 CMD ["python", "app.py"]
 
 
