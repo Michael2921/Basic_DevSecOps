@@ -75,6 +75,18 @@ pipeline {
         }
 
 
+        stage('Deploying image') {
+
+            steps {
+
+               sh 'whoami'
+
+
+            }
+
+        }
+
+
 
 
         stage('Running docker compose.') {
