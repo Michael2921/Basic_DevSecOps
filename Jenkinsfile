@@ -82,35 +82,60 @@ pipeline {
 
         }
 
+        stage('Docker login and push to repo') {
+            steps {
+                script {
+                    echo "Logging in to docker"
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                        sh 'echo $PASS | docker login -u $USER --password-stdin'
+                        sh 'echo "Pushing secure image to repo"'
+                        sh "docker push ${IMAGE_NAME}"
 
-
-
-        stage('Running docker compose.') {
-
-           steps{
-
-            script {
-                withCredentials([
-                    usernamePassword(
-                    credentialsId: 'mongodb-creds',
-                    usernameVariable: 'MONGO_INITDB_ROOT_USERNAME',
-                    passwordVariable: 'MONGO_INITDB_ROOT_PASSWORD')
-               ])
-               {
-                    sh 'docker compose down -v'
-                    sh 'docker compose -f docker-compose.yaml up -d'
-                    sh 'docker compose down -v'
+                  }
 
                 }
 
+            }
 
-                }
+        }
+
+//        stage('Pushing secure image to repo') {
+//            steps {
+//
+//
+//            }
+//
+//        }
 
 
-                }
 
 
-                }
+//        stage('Running docker compose.') {
+//
+//           steps{
+//
+//            script {
+//                withCredentials([
+//                    usernamePassword(
+//                    credentialsId: 'mongodb-creds',
+//                    usernameVariable: 'MONGO_INITDB_ROOT_USERNAME',
+//                    passwordVariable: 'MONGO_INITDB_ROOT_PASSWORD')
+//               ])
+//               {
+//                    sh 'docker compose down -v'
+//                    sh 'docker compose -f docker-compose.yaml up -d'
+//                    sh 'docker compose down -v'
+//
+//                }
+//
+//
+//                }
+//
+//
+//                }
+
+
+//                }
 
 
 //        stage('Push secure code to master branch'){
