@@ -3,6 +3,7 @@
 export IMAGE_NAME=$1
 echo $PATH
 whoami
+hostname
 which docker-compose
 
 docker-compose down -v
