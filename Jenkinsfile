@@ -118,6 +118,8 @@ pipeline {
             steps {
                    script {
                         sh 'echo "Pushing code to master branch"'
+                        sh 'git config user.email "jenkins@example.com"'
+                        sh 'git config user.name "jenkins"'
                         sh 'git status'
                         sh 'git branch'
                         sh 'git remote set-url origin https://${GITHUB_TOKEN}@github.com/Michael2921/Basic_DevSecOps.git'
