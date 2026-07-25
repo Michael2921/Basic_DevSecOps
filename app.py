@@ -12,7 +12,6 @@ uri = (
 
 )
 
-print(uri)
 
 client = MongoClient(uri)
 

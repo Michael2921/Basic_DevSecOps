@@ -83,6 +83,28 @@ pipeline {
         }
 
 
+                stage('Push secure code to master branch'){
+
+                    steps {
+                           script {
+                                sh 'echo "Pushing code to master branch"'
+                                sh 'git config user.email "jenkins@example.com"'
+                                sh 'git config user.name "jenkins"'
+                                sh 'git status'
+                                sh 'git branch'
+                                sh 'git remote set-url origin https://${GITHUB_TOKEN}@github.com/Michael2921/Basic_DevSecOps.git'
+                                sh 'git add .'
+                                sh 'git commit -m "pushing secure code to master branch"'
+                                sh 'git push -f origin HEAD:master'
+
+
+                           }
+
+                    }
+
+        }
+
+
         stage('Docker login and push to repo') {
             steps {
                 script {
@@ -102,61 +124,6 @@ pipeline {
 
 
 
-
-//        stage('Running docker compose.') {
-//
-//           steps{
-//
-//            script {
-//                withCredentials([
-//                    usernamePassword(
-//                    credentialsId: 'mongodb-creds',
-//                    usernameVariable: 'MONGO_INITDB_ROOT_USERNAME',
-//                    passwordVariable: 'MONGO_INITDB_ROOT_PASSWORD')
-//               ])
-//               {
-//                    sh 'docker compose down -v'
-//                    sh 'docker compose -f docker-compose.yaml up -d'
-//                    sh 'docker compose down -v'
-//
-//                }
-//
-//
-//                }
-//
-//
-//                }
-
-
-//                }
-
-
-//        stage('Push secure code to master branch'){
-//            when {
-//                not {
-//                    branch 'master'
-//                }
-//            }
-//
-//            steps {
-//                   script {
-//                        sh 'echo "Pushing code to master branch"'
-//                        sh 'git config user.email "jenkins@example.com"'
-//                        sh 'git config user.name "jenkins"'
-//                        sh 'git status'
-//                        sh 'git branch'
-//                        sh 'git remote set-url origin https://${GITHUB_TOKEN}@github.com/Michael2921/Basic_DevSecOps.git'
-//                        sh 'git add .'
-//                        sh 'git commit -m "pushing secure code to master branch"'
-//                        sh 'git push -f origin HEAD:master'
-//
-//
-//                   }
-//
-//            }
-//
-//        }
-//
         stage('Deploying image to EC2'){
 
             steps {
