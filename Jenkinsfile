@@ -132,10 +132,6 @@ pipeline {
 
         }
 
-        stage('Deploying image'){
-           echo 'deploying image'
-
-        }
 
 
                 }
