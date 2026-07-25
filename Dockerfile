@@ -1,6 +1,6 @@
 #FROM python:3.15.0b4-slim
 
-FROM dhi.io/python:3
+FROM dhi.io/python:3-dev
 
 WORKDIR /home/app
 
