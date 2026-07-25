@@ -6,6 +6,7 @@ pipeline {
     environment {
         MONGODB_HOST = "mongodb"
         MONGODB_PORT = "27017"
+        GITHUB_TOKEN = credentials('github-token')
 
 
     }
@@ -75,45 +76,68 @@ pipeline {
         }
 
 
-        stage('Deploying image') {
+
+
+
+
+
+//        stage('Running docker compose.') {
+//
+//           steps{
+//
+//            script {
+//                withCredentials([
+//                    usernamePassword(
+//                    credentialsId: 'mongodb-creds',
+//                    usernameVariable: 'MONGO_INITDB_ROOT_USERNAME',
+//                    passwordVariable: 'MONGO_INITDB_ROOT_PASSWORD')
+//               ])
+//               {
+//                    sh 'docker compose down -v'
+//                    sh 'docker compose -f docker-compose.yaml up -d'
+//
+//                }
+//
+//
+//                }
+//
+//
+//                }
+//
+//
+//                }
+
+
+        stage('Push secure code to master branch'){
+            when {
+                not {
+                    branch 'master'
+                }
+            }
 
             steps {
+                   script {
+                        sh 'echo "Pushing code to master branch"'
+                        sh 'git status'
+                        sh 'git branch'
+                        sh 'git remote set-url origin https://${GITHUB_TOKEN}@github.com/Michael2921/Basic_DevSecOps.git'
+                        sh 'git add .'
+                        sh 'git commit -m "pushing secure code to master branch"'
+                        sh 'git push origin HEAD:master'
 
-               sh 'whoami'
 
+                   }
 
             }
 
         }
 
+        stage('Deploying image'){
+           echo 'deploying image'
+
+        }
 
 
-
-        stage('Running docker compose.') {
-
-           steps{
-
-            script {
-                withCredentials([
-                    usernamePassword(
-                    credentialsId: 'mongodb-creds',
-                    usernameVariable: 'MONGO_INITDB_ROOT_USERNAME',
-                    passwordVariable: 'MONGO_INITDB_ROOT_PASSWORD')
-               ])
-               {
-                    sh 'docker compose down -v'
-                    sh 'docker compose -f docker-compose.yaml up -d'
-
-                }
-
-
-                }
-
-
-                }
-
-
-                }
                 }
 
         }
