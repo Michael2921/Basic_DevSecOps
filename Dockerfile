@@ -1,6 +1,4 @@
-#FROM python:3.15.0b4-slim
-
-FROM dhi.io/python:3-dev
+FROM dhi.io/python:3-dev AS builder
 
 WORKDIR /home/app
 
@@ -8,9 +6,13 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-#COPY app.py .
+FROM dhi.io/python:3
 
-#RUN useradd --create-home appuser && chown -R appuser:appuser /home/app
+WORKDIR /home/app
+
+COPY --from=builder /app /app
+
+COPY app.py .
 
 USER appuser
 
