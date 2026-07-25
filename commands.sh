@@ -4,6 +4,6 @@ export IMAGE_NAME=$1
 echo $PATH
 which docker-compose
 
-docker-compose down -v
-docker-compose -f docker-compose.yaml up -d
+/usr/local/bin/docker-compose down -v
+/usr/local/bin/docker-compose -f docker-compose.yaml up -d
 echo "success"
