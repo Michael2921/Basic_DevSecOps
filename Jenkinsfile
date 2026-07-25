@@ -63,7 +63,7 @@ pipeline {
         stage('Building image from Dockerfile.') {
 
             steps {
-                sh 'docker build -t ${IMAGE_NAME} .'
+                sh 'docker build --no-cache -t ${IMAGE_NAME} .'
 
 
 

@@ -4,16 +4,18 @@ WORKDIR /home/app
 
 COPY requirements.txt .
 
-RUN pip install -r requirements.txt
+RUN pip install --target=/home/app/dependencies -r requirements.txt
 
 FROM cgr.dev/chainguard/python:latest-dev
 
 WORKDIR /home/app
 
-COPY --from=builder /home/app /home/app
+COPY --from=builder /home/app/dependencies /home/app/dependencies
 
 COPY app.py .
 
-CMD ["python", "app.py"]
+ENV PYTHONPATH=/home/app/dependencies
+
+CMD ["app.py"]
 
 
