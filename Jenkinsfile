@@ -161,12 +161,29 @@ pipeline {
 
             steps {
                 script {
+                    withCredentials([
+                        usernamePassword(
+                    credentialsId: 'mongodb-creds',
+                    usernameVariable: 'MONGO_INITDB_ROOT_USERNAME',
+                    passwordVariable: 'MONGO_INITDB_ROOT_PASSWORD')
+                    ]) {
+
+
                     def shellCmd = "bash ./commands.sh ${IMAGE_NAME}"
                     def ec2Instance = "ec2-user@18.191.154.151"
 
                     sshagent(['basic-devsecops-ssh']) {
                         sh "scp -o StrictHostKeyChecking=no commands.sh docker-compose.yaml ${ec2Instance}:/home/ec2-user"
-                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${shellCmd}"
+                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance}"
+                        sh "export MONGODB_HOST=${MONGODB_HOST}"
+                        sh "export MONGODB_HOST=${MONGODB_PORT}"
+                        sh "export MONGODB_USER=${MONGO_INITDB_ROOT_USERNAME}"
+                        sh "export MONGODB_PASS=${MONGO_INITDB_ROOT_PASSWORD}"
+                        sh "export ME_CONFIG_BASICAUTH_USERNAME=${MONGO_INITDB_ROOT_PASSWORD}"
+                        sh "export ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}"
+                      //  sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${shellCmd}"
+
+                    }
 
                     }
                 }
