@@ -82,6 +82,7 @@ pipeline {
 
         }
 
+
         stage('Docker login and push to repo') {
             steps {
                 script {
@@ -98,14 +99,6 @@ pipeline {
             }
 
         }
-
-//        stage('Pushing secure image to repo') {
-//            steps {
-//
-//
-//            }
-//
-//        }
 
 
 
@@ -164,22 +157,22 @@ pipeline {
 //
 //        }
 //
-//        stage('Deploying image to EC2'){
-//            when {branch 'master'}
-//            steps {
-//                script {
-//                    def shellCmd = "bash ./commands.sh"
-//                    def ec2Instance = "ec2-user@18.191.154.151"
-//
-//                    sshagent(['basic-devsecops-ssh']) {
-//                        sh "scp -o StrictHostKeyChecking=no commands.sh docker-compose.yaml app.py Dockerfile ${ec2Instance}:/home/ec2-user"
-//                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${shellCmd}"
-//
-//                    }
-//                }
-//
-//            }
-//        }
+        stage('Deploying image to EC2'){
+            when {branch 'master'}
+            steps {
+                script {
+                    def shellCmd = "bash ./commands.sh ${IMAGE_NAME}"
+                    def ec2Instance = "ec2-user@18.191.154.151"
+
+                    sshagent(['basic-devsecops-ssh']) {
+                        sh "scp -o StrictHostKeyChecking=no commands.sh docker-compose.yaml ${ec2Instance}:/home/ec2-user"
+                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${shellCmd}"
+
+                    }
+                }
+
+            }
+        }
 
 
 
