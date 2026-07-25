@@ -181,7 +181,7 @@ pipeline {
                         sh "export MONGODB_PASS=${MONGO_INITDB_ROOT_PASSWORD}"
                         sh "export ME_CONFIG_BASICAUTH_USERNAME=${MONGO_INITDB_ROOT_PASSWORD}"
                         sh "export ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}"
-                      //  sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${shellCmd}"
+                        sh "${shellCmd}"
 
                     }
 
