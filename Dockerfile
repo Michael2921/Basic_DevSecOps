@@ -10,7 +10,7 @@ FROM dhi.io/python:3
 
 WORKDIR /home/app
 
-COPY --from=builder /app /app
+COPY --from=builder /home/app /home/app
 
 COPY app.py .
 
