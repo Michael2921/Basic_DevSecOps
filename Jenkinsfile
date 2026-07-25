@@ -174,16 +174,9 @@ pipeline {
 
                     sshagent(['basic-devsecops-ssh']) {
                         sh "scp -o StrictHostKeyChecking=no commands.sh docker-compose.yaml ${ec2Instance}:/home/ec2-user"
-                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance}"
-                        sh "export MONGODB_HOST=${MONGODB_HOST}"
-                        sh "export MONGODB_HOST=${MONGODB_PORT}"
-                        sh "export MONGODB_USER=${MONGO_INITDB_ROOT_USERNAME}"
-                        sh "export MONGODB_PASS=${MONGO_INITDB_ROOT_PASSWORD}"
-                        sh "export ME_CONFIG_BASICAUTH_USERNAME=${MONGO_INITDB_ROOT_PASSWORD}"
-                        sh "export ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}"
-                        //sh "which docker-compose"
-                        //sh "docker-compose -f docker-compose.yaml up -d"
-                        sh "${shellCmd}"
+                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} MONGODB_USER='$MONGO_INITDB_ROOT_USERNAME' MONGODB_PASS='$MONGO_INITDB_ROOT_PASSWORD' \
+                        MONGODB_HOST='$MONGODB_HOST' MONGODB_PORT='$MONGODB_PORT' ME_CONFIG_BASICAUTH_USERNAME='${MONGO_INITDB_ROOT_USERNAME}' ME_CONFIG_BASICAUTH_PASSWORD='${MONGO_INITDB_ROOT_PASSWORD}' \
+                        ${shellCmd}"
 
                     }
 
