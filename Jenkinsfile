@@ -7,7 +7,7 @@ pipeline {
         MONGODB_HOST = "mongodb"
         MONGODB_PORT = "27017"
         GITHUB_TOKEN = credentials('github-token')
-        IMAGE_NAME = michael101/basic-devsecops:v1
+        IMAGE_NAME = "michael101/basic-devsecops:v1"
 
 
     }
