@@ -158,7 +158,7 @@ pipeline {
 //        }
 //
         stage('Deploying image to EC2'){
-            when {branch 'master'}
+
             steps {
                 script {
                     def shellCmd = "bash ./commands.sh ${IMAGE_NAME}"
