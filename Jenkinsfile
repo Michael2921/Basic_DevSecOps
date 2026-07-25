@@ -84,7 +84,7 @@ pipeline {
 
 
                 stage('Push secure code to master branch'){
-
+                    when {branch 'dev'}
                     steps {
                            script {
                                 sh 'echo "Pushing code to master branch"'
