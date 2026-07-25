@@ -1,7 +1,7 @@
 services:
 
   custom-app:
-    image: basic_devsecops:v1
+    image: ${IMAGE_NAME}
     restart: always
     depends_on:
       - mongodb

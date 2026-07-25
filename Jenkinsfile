@@ -7,6 +7,7 @@ pipeline {
         MONGODB_HOST = "mongodb"
         MONGODB_PORT = "27017"
         GITHUB_TOKEN = credentials('github-token')
+        IMAGE_NAME = michael101/basic-devsecops:v1
 
 
     }
@@ -56,7 +57,7 @@ pipeline {
         stage('Building image from Dockerfile.') {
 
             steps {
-                sh 'docker build -t basic_devsecops:v1 .'
+                sh 'docker build -t ${IMAGE_NAME} .'
 
 
 
@@ -78,61 +79,75 @@ pipeline {
 
 
 
+        stage('Running docker compose.') {
 
+           steps{
 
+            script {
+                withCredentials([
+                    usernamePassword(
+                    credentialsId: 'mongodb-creds',
+                    usernameVariable: 'MONGO_INITDB_ROOT_USERNAME',
+                    passwordVariable: 'MONGO_INITDB_ROOT_PASSWORD')
+               ])
+               {
+                    sh 'docker compose down -v'
+                    sh 'docker compose -f docker-compose.yaml up -d'
 
-//        stage('Running docker compose.') {
-//
-//           steps{
-//
-//            script {
-//                withCredentials([
-//                    usernamePassword(
-//                    credentialsId: 'mongodb-creds',
-//                    usernameVariable: 'MONGO_INITDB_ROOT_USERNAME',
-//                    passwordVariable: 'MONGO_INITDB_ROOT_PASSWORD')
-//               ])
-//               {
-//                    sh 'docker compose down -v'
-//                    sh 'docker compose -f docker-compose.yaml up -d'
-//
-//                }
-//
-//
-//                }
-//
-//
-//                }
-//
-//
-//                }
-
-
-        stage('Push secure code to master branch'){
-            when {
-                not {
-                    branch 'master'
                 }
-            }
-
-            steps {
-                   script {
-                        sh 'echo "Pushing code to master branch"'
-                        sh 'git config user.email "jenkins@example.com"'
-                        sh 'git config user.name "jenkins"'
-                        sh 'git status'
-                        sh 'git branch'
-                        sh 'git remote set-url origin https://${GITHUB_TOKEN}@github.com/Michael2921/Basic_DevSecOps.git'
-                        sh 'git add .'
-                        sh 'git commit -m "pushing secure code to master branch"'
-                        sh 'git push -f origin HEAD:master'
 
 
-                   }
+                }
 
-            }
 
-        }
+                }
+
+
+                }
+
+
+//        stage('Push secure code to master branch'){
+//            when {
+//                not {
+//                    branch 'master'
+//                }
+//            }
+//
+//            steps {
+//                   script {
+//                        sh 'echo "Pushing code to master branch"'
+//                        sh 'git config user.email "jenkins@example.com"'
+//                        sh 'git config user.name "jenkins"'
+//                        sh 'git status'
+//                        sh 'git branch'
+//                        sh 'git remote set-url origin https://${GITHUB_TOKEN}@github.com/Michael2921/Basic_DevSecOps.git'
+//                        sh 'git add .'
+//                        sh 'git commit -m "pushing secure code to master branch"'
+//                        sh 'git push -f origin HEAD:master'
+//
+//
+//                   }
+//
+//            }
+//
+//        }
+//
+//        stage('Deploying image to EC2'){
+//            when {branch 'master'}
+//            steps {
+//                script {
+//                    def shellCmd = "bash ./commands.sh"
+//                    def ec2Instance = "ec2-user@18.191.154.151"
+//
+//                    sshagent(['basic-devsecops-ssh']) {
+//                        sh "scp -o StrictHostKeyChecking=no commands.sh docker-compose.yaml app.py Dockerfile ${ec2Instance}:/home/ec2-user"
+//                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${shellCmd}"
+//
+//                    }
+//                }
+//
+//            }
+//        }
 
 
 
