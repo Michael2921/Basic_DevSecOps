@@ -182,8 +182,8 @@ pipeline {
                         sh "export ME_CONFIG_BASICAUTH_USERNAME=${MONGO_INITDB_ROOT_PASSWORD}"
                         sh "export ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}"
                         //sh "which docker-compose"
-                        sh "docker-compose -f docker-compose.yaml up -d"
-                        //sh "${shellCmd}"
+                        //sh "docker-compose -f docker-compose.yaml up -d"
+                        sh "${shellCmd}"
 
                     }
 
