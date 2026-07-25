@@ -6,7 +6,8 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-FROM cgr.dev/chainguard/python:latest-dev
+FROM dhi.io/python:3
+#FROM cgr.dev/chainguard/python:latest-dev
 
 WORKDIR /home/app
 
