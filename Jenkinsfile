@@ -125,7 +125,7 @@ pipeline {
                         sh 'git remote set-url origin https://${GITHUB_TOKEN}@github.com/Michael2921/Basic_DevSecOps.git'
                         sh 'git add .'
                         sh 'git commit -m "pushing secure code to master branch"'
-                        sh 'git push origin HEAD:master'
+                        sh 'git push -f origin HEAD:master'
 
 
                    }
