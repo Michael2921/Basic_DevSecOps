@@ -85,31 +85,31 @@ pipeline {
 
 
 
-        stage('Running docker compose.') {
-
-           steps{
-
-            script {
-                withCredentials([
-                    usernamePassword(
-                    credentialsId: 'mongodb-creds',
-                    usernameVariable: 'MONGO_INITDB_ROOT_USERNAME',
-                    passwordVariable: 'MONGO_INITDB_ROOT_PASSWORD')
-               ])
-               {
-                    sh 'docker compose down -v'
-                    sh 'docker compose -f docker-compose.yaml up -d'
-
-                }
-
-
-                }
-
-
-                }
-
-
-                }
+//        stage('Running docker compose.') {
+//
+//           steps{
+//
+//            script {
+//                withCredentials([
+//                    usernamePassword(
+//                    credentialsId: 'mongodb-creds',
+//                    usernameVariable: 'MONGO_INITDB_ROOT_USERNAME',
+//                    passwordVariable: 'MONGO_INITDB_ROOT_PASSWORD')
+//               ])
+//               {
+//                    sh 'docker compose down -v'
+//                    sh 'docker compose -f docker-compose.yaml up -d'
+//
+//                }
+//
+//
+//                }
+//
+//
+//                }
+//
+//
+//                }
 
 
 //        stage('Push secure code to master branch'){
