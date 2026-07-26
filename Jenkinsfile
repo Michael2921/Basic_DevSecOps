@@ -84,6 +84,7 @@ pipeline {
 
 
                 stage('Push secure code to master branch'){
+                when {branch 'dev'}
 
                     steps {
                            script {
