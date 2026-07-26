@@ -107,7 +107,7 @@ pipeline {
 
 
         stage('Docker login and push to repo') {
-        when {branch 'master'}
+
             steps {
                 script {
                     echo "Logging in to docker"
@@ -127,8 +127,6 @@ pipeline {
 
 
         stage('Deploying image to EC2'){
-
-        when {branch 'master'}
 
             steps {
                 script {
