@@ -79,7 +79,8 @@ pipeline {
 
             steps {
 
-               sh 'trivy image --severity HIGH,CRITICAL --exit-code 1 basic_devsecops:v1'
+               sh 'trivy image --severity HIGH,CRITICAL --format table -o trivy-report.txt --exit-code 1 basic_devsecops:v1'
+               sh 'cat trivy-report.txt'
 
 
             }
