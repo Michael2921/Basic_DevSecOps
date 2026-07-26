@@ -17,6 +17,7 @@ pipeline {
 
 
         stage('Sonarqube scan') {
+        when {branch 'dev'}
 
             environment {
                 scannerHome = tool 'sonarqube-scanner'
@@ -47,6 +48,7 @@ pipeline {
 
 
         stage('Sonarqube quality gate') {
+        when {branch 'dev'}
 
                 steps {
 
@@ -61,6 +63,7 @@ pipeline {
 
 
         stage('Building image from Dockerfile.') {
+        when {branch 'dev'}
 
             steps {
                 sh 'docker build --no-cache -t ${IMAGE_NAME} .'
@@ -72,6 +75,7 @@ pipeline {
 
 
         stage('Trivy scan') {
+        when {branch 'dev'}
 
             steps {
 
