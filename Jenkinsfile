@@ -82,9 +82,11 @@ pipeline {
 
         }
 
+        //When security scans pass, secure code is pushed to master, then secure code is pushed from master to private Docker repo and deployed to EC2
+
 
                 stage('Push secure code to master branch'){
-                when {branch 'dev'}
+                when {branch 'dev'} //master doesn't push to itself. work isn't done from master. only pushed from dev when security scans pass
 
                     steps {
                            script {
@@ -107,6 +109,7 @@ pipeline {
 
 
         stage('Docker login and push to repo') {
+        when {branch 'master'}
 
             steps {
                 script {
@@ -127,6 +130,7 @@ pipeline {
 
 
         stage('Deploying image to EC2'){
+        when {branch 'master'} //deploys from master
 
             steps {
                 script {
