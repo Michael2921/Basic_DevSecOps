@@ -16,7 +16,7 @@ pipeline {
     stages {
 
 
-        stage('Sonarqube scan') {
+        stage('Sonarqube Scan') {
         when {branch 'dev'}
 
             environment {
@@ -47,7 +47,7 @@ pipeline {
         }
 
 
-        stage('Sonarqube quality gate') {
+        stage('Sonarqube Quality Gate') {
         when {branch 'dev'}
 
                 steps {
@@ -62,7 +62,7 @@ pipeline {
             }
 
 
-        stage('Building image from Dockerfile.') {
+        stage('Build Image From Dockerfile.') {
         when {branch 'dev'}
 
             steps {
@@ -74,7 +74,7 @@ pipeline {
         }
 
 
-        stage('Trivy scan') {
+        stage('Trivy Scan') {
         when {branch 'dev'}
 
             steps {
@@ -113,7 +113,7 @@ pipeline {
         }
 
 
-        stage('Docker login and push to repo') {
+        stage('Docker Login and Push to Private Repo') {
         when {branch 'master'}
 
             steps {
@@ -134,7 +134,7 @@ pipeline {
 
 
 
-        stage('Deploying image to EC2'){
+        stage('Deploy image to EC2'){
         when {branch 'master'} //deploys from master
 
             steps {
