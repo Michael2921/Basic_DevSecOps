@@ -91,7 +91,7 @@ pipeline {
 
 
                 stage('Push secure code to master branch'){
-                when {branch 'dev'} //master doesn't push to itself. work isn't done from master. only pushed from dev when security scans pass
+                when {branch 'dev'} //master doesn't push to itself avoiding a build loop. work isn't done from master. only pushed from dev when security scans pass
 
                     steps {
                            script {
@@ -147,14 +147,16 @@ pipeline {
                         usernamePassword(
                         credentialsId: 'docker-hub-repo',
                         usernameVariable: 'USER',
-                        passwordVariable: 'PASS')
+                        passwordVariable: 'PASS'),
+
+                        string(credentialsId: 'ec2-instance', variable: 'EC2_INSTANCE')
 
                     ]) {
 
                     def shellCmd = "bash ./commands.sh ${IMAGE_NAME}"
-                    def ec2Instance = "ec2-user@18.191.154.151"
+                    def ec2Instance = "ec2-user@${EC2_INSTANCE}"
 
-                    sshagent(['basic-devsecops-ssh']) {
+                    sshagent(['basic-devsecops-ssh']) { //variables are set in the ssh command and a shell script containing commands to login to docker repo and deploy is executed
                         sh "scp -o StrictHostKeyChecking=no commands.sh docker-compose.yaml ${ec2Instance}:/home/ec2-user"
                         sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} MONGO_INITDB_ROOT_USERNAME='${MONGO_INITDB_ROOT_USERNAME}' MONGO_INITDB_ROOT_PASSWORD='${MONGO_INITDB_ROOT_PASSWORD}' \
                         MONGODB_HOST='${MONGODB_HOST}' MONGODB_PORT='${MONGODB_PORT}' USER=${USER} PASS=${PASS} \
