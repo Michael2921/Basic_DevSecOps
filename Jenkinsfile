@@ -101,10 +101,9 @@ pipeline {
                                 sh 'git status'
                                 sh 'git branch'
                                 sh 'git remote set-url origin https://${GITHUB_TOKEN}@github.com/Michael2921/Basic_DevSecOps.git'
-                                sh 'git pull'
                                 sh 'git add .'
-                                sh 'git commit -m "pushing secure code to master branch"'
-                                sh 'git push origin HEAD:master'
+                                sh 'git commit --allow-empty -m "pushing secure code to master branch"'
+                                sh 'git push -f origin HEAD:master'
 
 
                            }
